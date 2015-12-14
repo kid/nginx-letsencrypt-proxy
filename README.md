@@ -27,12 +27,12 @@ docker run -it -d \
 ```
 docker run -it -d \
   --name docker-gen \
-  --volumes-from=nginx \
+  --volumes-from nginx \
   -v /var/run/docker.sock:/tmp/docker.sock:ro \
   jwilder/docker-gen \
   --watch \
-  -only-exposed
-  -notify-sighup nginx
+  -only-exposed \
+  -notify-sighup nginx \
   /etc/nginx/conf.d/99-vhosts.conf.tmpl \
   /etc/nginx/conf.d/99-vhosts.conf
 ```
