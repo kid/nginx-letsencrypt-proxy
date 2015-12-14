@@ -15,6 +15,7 @@ server {
 
   ssl_certificate /etc/letsencrypt/live/{{ (first $containers).Env.LETSENCRYPT_CERTIFICATE_NAME }}/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/live/{{ (first $containers).Env.LETSENCRYPT_CERTIFICATE_NAME }}/privkey.pem;
+  ssl_trusted_certificate /etc/letsencrypt/live/{{ (first $containers).Env.LETSENCRYPT_CERTIFICATE_NAME }}/chain.pem;
 
   include /etc/nginx/ssl-options.conf;
 
