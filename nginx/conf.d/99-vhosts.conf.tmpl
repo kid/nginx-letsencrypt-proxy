@@ -7,15 +7,17 @@ upstream {{ $host }} {
 {{ end }}
 }
 
+{{ $certName := or (first (groupByKeys $containers "Env.CERT_NAME")) $host }}
+
 server {
   listen 443 ssl http2 default deferred;
   listen [::]:443 ssl http2 default deferred;
 
   server_name {{ $host }};
 
-  ssl_certificate /etc/letsencrypt/live/{{ (first $containers).Env.LETSENCRYPT_CERTIFICATE_NAME }}/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/{{ (first $containers).Env.LETSENCRYPT_CERTIFICATE_NAME }}/privkey.pem;
-  ssl_trusted_certificate /etc/letsencrypt/live/{{ (first $containers).Env.LETSENCRYPT_CERTIFICATE_NAME }}/chain.pem;
+  ssl_certificate /etc/letsencrypt/live/{{ $certName }}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{{ $certName }}/privkey.pem;
+  ssl_trusted_certificate /etc/letsencrypt/live/{{ $certName }}/chain.pem;
 
   include /etc/nginx/ssl-options.conf;
 
