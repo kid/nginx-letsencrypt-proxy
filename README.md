@@ -22,7 +22,7 @@ docker run -it -d \
   --volumes-from letsencrypt-data \
   -p 80:80 \
   -p 443:443 \
-  nginx-letsencrypt-proxy
+  arnaudrebts/nginx-letsencrypt-proxy
 ```
 ```
 docker run -it -d \
@@ -37,8 +37,7 @@ docker run -it -d \
   /etc/nginx/conf.d/99-vhosts.conf
 ```
 
-
-Now, run the letsencrypt to get the initial certificate, using the webroot authentication method:
+Next, run letsencrypt to get the initial certificate, using the webroot authentication method:
 ```
 docker run -it --rm \
   --name letsencrypt \
@@ -54,3 +53,9 @@ docker run -it --rm \
   --email email@example.com \
   -d example.com
 ```
+
+We can now start the backend containers:
+```
+docker run -e VIRTUAL_HOST=example.com ...
+```
+The containers must expose the port, using the EXPOSE directive in their Dockerfile, or using the --expose flag to `docker run` or `docker create`.
