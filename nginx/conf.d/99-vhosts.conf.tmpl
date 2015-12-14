@@ -8,6 +8,7 @@ upstream {{ $host }} {
 }
 
 {{ $certName := or (first (groupByKeys $containers "Env.CERT_NAME")) $host }}
+{{ $scheme := or (first (groupByKeys $containers "Env.VIRTUAL_SCHEME")) "http" }}
 
 server {
   listen 443 ssl http2 default deferred;
@@ -27,7 +28,7 @@ server {
   include /etc/nginx/letsencrypt.conf;
 
   location / {
-    proxy_pass http://{{ $host }};
+    proxy_pass {{ $scheme }}://{{ $host }};
   }
 }
 {{ end }}
