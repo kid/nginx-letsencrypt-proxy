@@ -1,7 +1,7 @@
 nginx-letsencrypt-proxy
 =====
 
-nginx-letsencrypt-proxy is based on the officiel [nginx](https://registry.hub.docker.com/_/nginx/) image and includes a [docker-gen](https://hub.docker.com/r/jwilder/docker-gen/) template to generate vhosts configured to work with letsencrypt.
+nginx-letsencrypt-proxy is based on the official [nginx](https://registry.hub.docker.com/_/nginx/) image and includes a [docker-gen](https://hub.docker.com/r/jwilder/docker-gen/) template to generate vhosts configured to work with letsencrypt.
 
 The idea is to have a default vhosts running on port 80 that will serve the acme-challenge files, or return a 301 to the https version of your site.
 
