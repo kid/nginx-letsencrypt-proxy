@@ -68,3 +68,7 @@ By default, `nginx-letsencrypt-proxy` will use `VIRTUAL_HOST` to find the certif
 #### SSL Backends
 
 If your backend is using HTTPS, set `PROXY_SCHEME=https` on the backend container.
+
+#### Multiple vhosts
+
+If you need multiple virtual hosts for a single container, you can seperate them with commas: `VIRTUAL_HOST=foo.bar.com,foo.bar.com`. If they need to use the share same certificate, use the `CERT_NAME` option.
