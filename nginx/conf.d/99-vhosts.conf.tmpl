@@ -1,4 +1,4 @@
-{{ range $host, $containers := groupBy $ "Env.VIRTUAL_HOST" }}
+{{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
 upstream {{ $host }} {
 {{ range $index, $value := $containers }}
   {{ with $address := last $value.Addresses }}
@@ -11,8 +11,8 @@ upstream {{ $host }} {
 {{ $scheme := or (first (groupByKeys $containers "Env.PROXY_SCHEME")) "http" }}
 
 server {
-  listen 443 ssl http2 default deferred;
-  listen [::]:443 ssl http2 default deferred;
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
 
   server_name {{ $host }};
 
